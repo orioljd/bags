@@ -1,3 +1,7 @@
+# Test
+
+This is a test of https://katalyst.codurance.com/bags
+
 # Instalation
 
 This works with docker if you have docker installed you can install it by :
