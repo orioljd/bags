@@ -1,0 +1,11 @@
+version: '3.5'
+
+services: 
+    app: # nombre d servicio totalmente arbitrario
+        container_name: app-habitissimo
+        build: . # Se ira a buscar el Dockerfile. Caso de tener varios, habria que especificar el nombre del fichero en cuestion
+        volumes: 
+            - ./:/app # Mapeo de rutas: toda la ruta del proyecto se metera dentro de /app del contenedor
+        working_dir: /app # Carpeta de trabajo del contenedor
+        ports:
+            - 9001:9000 # Mapeo de puertos: en ubuntu toda peticion q vaya al 9000 sera interceptada por docker
