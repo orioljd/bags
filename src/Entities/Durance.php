@@ -16,7 +16,7 @@ class Durance
     private array $bags = [];
     private Backpack $backpack;
 
-    public function __construct($a_bagpack, array $some_bags)
+    public function __construct(Backpack $a_bagpack, array $some_bags)
     {
         $this->addBags($some_bags);
         $this->backpack = $a_bagpack;

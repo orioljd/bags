@@ -20,6 +20,7 @@ class BackpackTest extends TestCase
 
         $this->assertFalse($backpack->isFull());
     }
+
     public function testIsFull()
     {
         $category = new Category('Clothes');

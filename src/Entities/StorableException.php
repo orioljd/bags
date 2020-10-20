@@ -8,7 +8,6 @@ use Exception;
 
 final class StorableException extends Exception
 {
-
     public static function tooMuchBags(): self
     {
         return new self('Too much bags');
