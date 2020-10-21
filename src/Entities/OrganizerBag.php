@@ -19,5 +19,6 @@ class OrganizerBag extends Storable
             $bagItems = $bag->allItems();
             $this->items = array_merge($this->items, $bagItems);
         }
+        $this->sort();
     }
 }

@@ -78,4 +78,41 @@ class DuranceTest extends TestCase
 
         $this->stashItems(9);
     }
+
+    public function testOrganize()
+    {
+        $categoryClothes = new Category('Clothes');
+        $categoryMetals = new Category('Metals');
+        $categoryHerbs = new Category('Herbs');
+        $categoryWeapons = new Category('Weapons');
+
+        $this->durance = new Durance(new Backpack(), [new Bag($categoryClothes), new Bag($categoryMetals), new Bag($categoryHerbs), new Bag()]);
+        $this->durance->stashItem(new Item('Leather', $categoryClothes));
+        $this->durance->stashItem(new Item('Gold', $categoryMetals));
+        $this->durance->stashItem(new Item('Silk', $categoryClothes));
+        $this->durance->stashItem(new Item('Axe', $categoryWeapons));
+        $this->durance->stashItem(new Item('Rose', $categoryHerbs));
+        $this->durance->stashItem(new Item('Wool', $categoryClothes));
+        $this->durance->stashItem(new Item('Dagger', $categoryWeapons));
+        $this->durance->stashItem(new Item('Iron', $categoryMetals));
+
+        $this->durance->stashItem(new Item('Cherry Blossom', $categoryHerbs));
+        $this->durance->stashItem(new Item('Copper', $categoryMetals));
+        $this->durance->stashItem(new Item('Sword', $categoryWeapons));
+        $this->durance->stashItem(new Item('Marigold', $categoryHerbs));
+
+        $this->durance->stashItem(new Item('Wool', $categoryClothes));
+        $this->durance->stashItem(new Item('Linen', $categoryClothes));
+
+        $this->durance->organize();
+
+        $this->assertEquals('Axe', $this->durance->backpack()->item(0)->name());
+        $this->assertEquals('Wool', $this->durance->backpack()->item(3)->name());
+        $this->assertEquals('Linen', $this->durance->bag(0)->item(1)->name());
+        $this->assertEquals('Wool', $this->durance->bag(0)->item(3)->name());
+        $this->assertEquals('Gold', $this->durance->bag(1)->item(1)->name());
+        $this->assertEquals('Iron', $this->durance->bag(1)->item(2)->name());
+        $this->assertEquals('Cherry Blossom', $this->durance->bag(2)->item(0)->name());
+        $this->assertEquals('Marigold', $this->durance->bag(2)->item(1)->name());
+    }
 }

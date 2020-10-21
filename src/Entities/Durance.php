@@ -6,12 +6,11 @@ namespace Habitissimo\Entities;
 
 use Habitissimo\Entities\Bag;
 use Habitissimo\Entities\Item;
+use Habitissimo\Entities\OrganizerBag;
 use Habitissimo\Entities\StorableException;
 
 class Durance
 {
-    //storageManager
-    //organizer --> interface(sort)
     private const MAX_BAGS = 4;
     private array $bags = [];
     private Backpack $backpack;
@@ -21,6 +20,7 @@ class Durance
     {
         $this->addBags($some_bags);
         $this->backpack = $a_bagpack;
+        $this->organizerBag = new OrganizerBag;
     }
 
     private function addBags(array $bags_to_add): void
@@ -55,7 +55,7 @@ class Durance
 
     public function backpack(): Backpack
     {
-        return $this->backpack();
+        return $this->backpack;
     }
 
     public function bag($index): Bag
@@ -69,7 +69,7 @@ class Durance
     public function organize(): void
     {
         $this->organizerBag->empty();
-        $this->organizerBag->fill(array_merge($this->backpack, $this->bags));
+        $this->organizerBag->fill(array_merge([$this->backpack], $this->bags));
         $this->emptyAllBags();
         $this->moveItems();
         $this->sortAllBags();
@@ -97,8 +97,10 @@ class Durance
     {
         foreach ($this->bags as $bag) {
             $category = $bag->category();
-            $categoryItems = $this->organizerBag->itemsByCategory($category);
-            $this->swapBags($categoryItems, $bag);
+            if ($category !== null) {
+                $categoryItems = $this->organizerBag->itemsByCategory($category);
+                $this->swapBags($categoryItems, $bag);
+            }
         }
 
         if ($this->organizerBag->countItems() > 0) {

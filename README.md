@@ -2,6 +2,9 @@
 
 This is a test based on this [kata](https://katalyst.codurance.com/bags)
 
+I know that null bags are not used, The kata don't say what to do with them,
+so for time reasons I didn't implement it.
+
 # Instalation
 
 This works with docker if you have docker installed you can install it by :
@@ -20,37 +23,24 @@ To do tests use:
 
 The classes used are:
 
- ## Durance
-  ### properties
-    MAX_BAGS = 4
-    bags
-    bagpacks
+## Durance
+> This is the Main Class it stash, store and organize items. So it has the backpack, bags and methods to organize and stash items.
 
-  ### Methods
-    stashItem
-    organize
+## Storable
+> This is an abstract parent class of **Backpack**, **OrganizerBag** and **Bag**. This has the common methods we need to manage the items.
 
- ## Storable
-  ### Properties
-    capacity
-    items
+## OrganizerBag
+> It doesn't have any category and it can storage unlimited items.
 
-  ### Methods
-    addItem
-    isFull
+## Backpack
+> It doesn't have any category and has a 8 maximum number of items.
 
- ## Backpack
-  ### Properties
-    MAX_ITEMS = 8
+## Bag
+> It can have a category or not and has a 4 maximum number of items.
 
- ## Bag
-  ### Properties
-    MAX_ITEMS = 4
-    category
+## Item
+> It always has a category, so we need it to put them in the correct bag, when
+method organized is invoked.
 
-  ### Methods
-    sortItems
-
- ## Item
-  ## Properties
-    category
+## StorableException
+> It is a class to have all the exceptions.
