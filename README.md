@@ -2,7 +2,7 @@
 
 This is a test based on this [kata](https://katalyst.codurance.com/bags)
 
-I know that null bags are not used, The kata don't say what to do with them,
+I know that null bags are not used, the kata don't say what to do with them,
 so for time reasons I didn't implement it.
 
 # Instalation
