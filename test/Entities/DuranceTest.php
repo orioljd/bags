@@ -13,6 +13,8 @@ use PHPUnit\Framework\TestCase;
 
 class DuranceTest extends TestCase
 {
+    private Durance $durance;
+
     public function testTooMuchBags()
     {
         $this->expectExceptionMessage('Too much bags');
@@ -47,33 +49,33 @@ class DuranceTest extends TestCase
     {
         $firstCategory = new Category('Herbs');
         $secondCategory = new Category('Weapons');
-        $durance = new Durance(new Backpack(), [new Bag($firstCategory), new Bag($secondCategory)]);
+        $this->durance = new Durance(new Backpack(), [new Bag($firstCategory), new Bag($secondCategory)]);
 
-        $this->stashItems($durance, 12); // fill backpack and 1st bag
-        $durance->stashItem(new Item('Rose', $firstCategory));
-        $durance->stashItem(new Item('Seaweed', $firstCategory));
-        $durance->stashItem(new Item('Dagger', $secondCategory));
+        $this->stashItems(12);
+        $this->durance->stashItem(new Item('Rose', $firstCategory));
+        $this->durance->stashItem(new Item('Seaweed', $firstCategory));
+        $this->durance->stashItem(new Item('Dagger', $secondCategory));
 
-        $thirdItemOfSecondBag = $durance->bag(1)->item(2);
+        $thirdItemOfSecondBag = $this->durance->bag(1)->item(2);
         $this->assertEquals('Dagger', $thirdItemOfSecondBag->name());
+    }
+
+    private function stashItems ($times): void
+    {
+        $category = new Category('Herbs');
+        $item = new Item('Marigold', $category);
+
+        for ($i = 0; $i < $times; $i++) {
+            $this->durance->stashItem(clone $item);
+        }
     }
 
     public function testNotEnoughBags()
     {
         $this->expectExceptionMessage('There is not enough bags to stash the item');
 
-        $durance = new Durance(new Backpack(), []);
+        $this->durance = new Durance(new Backpack(), []);
 
-        $this->stashItems($durance, 9);
-    }
-
-    private function stashItems($durance, $times): void
-    {
-        $category = new Category('Herbs');
-        $item = new Item('Marigold', $category);
-
-        for ($i = 0; $i < $times; $i++) {
-            $durance->stashItem(clone $item);
-        }
+        $this->stashItems(9);
     }
 }
