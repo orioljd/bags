@@ -7,7 +7,7 @@ so for time reasons I didn't implement it.
 
 # Instalation
 
-This works with docker if you have docker installed you can install it by :
+This works with docker if you have docker installed you can install this container by :
 
 `make build`
 
